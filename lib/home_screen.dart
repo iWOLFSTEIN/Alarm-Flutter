@@ -1,7 +1,5 @@
 import 'package:alarm_app/NotificationScheduler.dart';
-import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -11,6 +9,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,18 +19,15 @@ class _HomeScreenState extends State<HomeScreen> {
         color: Colors.white,
         child: ListTile(
           onTap: () async {
-            
+         
 
             var time = await showTimePicker(
                 context: context, initialTime: TimeOfDay.now());
 
-
-            // in case if picker is not cancelled 
+            // in case if picker is not cancelled
             if (time != null) {
-
-
-            // the notification schedule function take DateTime object while TimePicker returns
-            // TimeOfDay object so here is TimeOfDay is converted to DateTime 
+              // the notification schedule function take DateTime object while TimePicker returns
+              // TimeOfDay object so here is TimeOfDay is converted to DateTime
               var currentDateTime = DateTime.now();
               var settime = DateTime(
                 currentDateTime.year,
@@ -41,8 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 time.minute,
               );
 
-
-              // Schedule a notification with specific time and message 
+              // Schedule a notification with specific time and message
               NotificationScheduler.schedule(
                   scheduledNotificationDateTime: settime,
                   notificationBody:
