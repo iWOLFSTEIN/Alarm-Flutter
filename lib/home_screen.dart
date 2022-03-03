@@ -32,9 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
               if (currentDateTime.hour < time.hour) {
                 day = currentDateTime.day;
-              } else if (currentDateTime == time.hour) {
+              } else if (currentDateTime.hour == time.hour) {
                 if (currentDateTime.minute < time.minute) {
-                   day = currentDateTime.day;
+                  day = currentDateTime.day;
                 }
               }
               var settime = DateTime(
@@ -46,12 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
               );
               print(
                   "Alarm Time is ${day}/${currentDateTime.month}/${currentDateTime.year} at ${time.hour}:${time.minute}");
+              int id = currentDateTime.millisecondsSinceEpoch;
 
-           //   Schedule a notification with specific time and message
+                // Schedule a notification with specific time and message
               NotificationScheduler.schedule(
-                  scheduledNotificationDateTime: settime,
-                  notificationBody:
-                      "Alarm for ${time.hour % 12}:${time.minute}");
+                scheduledNotificationDateTime: settime,
+                notificationBody: "Alarm for ${time.hour % 12}:${time.minute}",
+                channelId: (id % 10000000).toInt(),
+               
+              );
             }
           },
           leading: Icon(Icons.alarm),

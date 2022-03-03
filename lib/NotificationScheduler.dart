@@ -4,16 +4,24 @@ import 'main.dart';
 
 class NotificationScheduler {
   static schedule(
-      {var scheduledNotificationDateTime, var notificationBody}) async {
+      {var scheduledNotificationDateTime,
+      var notificationBody,
+      int? channelId,
+      // String? channelName
+      }) async {
     var androidPlatformChannelSpecifics = const AndroidNotificationDetails(
-      // 'alarm_notif',
+      
       'warning',
       'Alarm notification',
       icon: '@mipmap/ic_launcher',
       playSound: true,
-     importance: Importance.high,
-     priority: Priority.high,
-    
+      importance: Importance.high,
+      priority: Priority.high,
+      //  fullScreenIntent: true,
+      // enableLights: true,
+      // ledOnMs: 500,
+     
+      
 
       sound: RawResourceAndroidNotificationSound('warning'),
       largeIcon: DrawableResourceAndroidBitmap('@mipmap/ic_launcher'),
@@ -29,7 +37,7 @@ class NotificationScheduler {
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics);
 
-    await flutterLocalNotificationsPlugin.schedule(0, 'Alarm', notificationBody,
+    await flutterLocalNotificationsPlugin.schedule(channelId!, 'Alarm', notificationBody,
         scheduledNotificationDateTime, platformChannelSpecifics);
   }
 }
