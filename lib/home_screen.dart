@@ -1,5 +1,6 @@
 import 'package:alarm_app/NotificationScheduler.dart';
 import 'package:flutter/material.dart';
+// import 'package:flutter_background_service/flutter_background_service.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({Key? key}) : super(key: key);
@@ -9,7 +10,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
- 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,8 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
         color: Colors.white,
         child: ListTile(
           onTap: () async {
-         
-
             var time = await showTimePicker(
                 context: context, initialTime: TimeOfDay.now());
 
@@ -28,16 +26,28 @@ class _HomeScreenState extends State<HomeScreen> {
             if (time != null) {
               // the notification schedule function take DateTime object while TimePicker returns
               // TimeOfDay object so here is TimeOfDay is converted to DateTime
+
               var currentDateTime = DateTime.now();
+              var day = currentDateTime.day + 1;
+
+              if (currentDateTime.hour < time.hour) {
+                day = currentDateTime.day;
+              } else if (currentDateTime == time.hour) {
+                if (currentDateTime.minute < time.minute) {
+                   day = currentDateTime.day;
+                }
+              }
               var settime = DateTime(
                 currentDateTime.year,
                 currentDateTime.month,
-                currentDateTime.day,
+                day,
                 time.hour,
                 time.minute,
               );
+              print(
+                  "Alarm Time is ${day}/${currentDateTime.month}/${currentDateTime.year} at ${time.hour}:${time.minute}");
 
-              // Schedule a notification with specific time and message
+           //   Schedule a notification with specific time and message
               NotificationScheduler.schedule(
                   scheduledNotificationDateTime: settime,
                   notificationBody:
