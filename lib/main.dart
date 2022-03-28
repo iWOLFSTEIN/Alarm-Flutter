@@ -1,13 +1,11 @@
-import 'package:alarm_app/home_screen.dart';
+import 'package:alarm_app/welcome_screen.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
- 
 
   var initializationSettingsAndroid =
       const AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -36,11 +34,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: HomeScreen(),
+      home: const WelcomeScreen(),
     );
   }
 }
